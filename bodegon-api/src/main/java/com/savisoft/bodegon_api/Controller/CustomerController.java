@@ -4,10 +4,9 @@ import com.savisoft.bodegon_api.entity.Customer;
 import com.savisoft.bodegon_api.service.CustomerService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/customer")
@@ -19,5 +18,25 @@ public class CustomerController {
     @PostMapping("/saveCustomer")
     public Customer saveCustomer(@Valid @RequestBody Customer customer) {
         return customerService.saveCustomer(customer);
+    }
+
+    @GetMapping("/findByPhoneNumber/{phoneNumber}")
+    public Customer findCustomerByPhoneNumber(@PathVariable String phoneNumber){
+        return customerService.findCustomerByPhoneNumber(phoneNumber);
+    }
+
+    @GetMapping("/findAllCustomersByFirstName")
+    public List<Customer> findAllCustomersByFirstName(@RequestParam (value = "firstName", defaultValue = "null") String firstName){
+        return customerService.findAllCustomersByFirstName(firstName);
+    }
+
+    @GetMapping("/findAllCustomersByLastName")
+    public List<Customer> findAllCustomersByLastName(@RequestParam (value = "lastName", defaultValue = "null")  String lastName){
+        return customerService.findAllCustomersByLastName(lastName);
+    }
+
+    @PutMapping("/updateCustomerById/{id}")
+    public Customer updateCustomerById(@PathVariable Long id, @RequestBody Customer customer){
+        return customerService.updateCustomerById(id, customer);
     }
 }
