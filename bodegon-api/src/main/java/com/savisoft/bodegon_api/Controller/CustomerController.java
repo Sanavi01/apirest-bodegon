@@ -1,7 +1,9 @@
 package com.savisoft.bodegon_api.Controller;
 
 import com.savisoft.bodegon_api.entity.Customer;
+import com.savisoft.bodegon_api.entity.Invoice;
 import com.savisoft.bodegon_api.service.CustomerService;
+import com.savisoft.bodegon_api.service.InvoiceService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -14,6 +16,8 @@ public class CustomerController {
 
     @Autowired
     CustomerService customerService;
+    @Autowired
+    InvoiceService invoiceService;
 
     @PostMapping("/saveCustomer")
     public Customer saveCustomer(@Valid @RequestBody Customer customer) {
@@ -38,5 +42,12 @@ public class CustomerController {
     @PutMapping("/updateCustomerById/{id}")
     public Customer updateCustomerById(@PathVariable Long id, @RequestBody Customer customer){
         return customerService.updateCustomerById(id, customer);
+    }
+
+    //----------------Methods to get information about the Invoice Entity---------
+
+    @GetMapping("/findAllInvoicesByCustomerId/{customerId}")
+    public List<Invoice> findAllInvoicesByCustomerId(@PathVariable Long customerId){
+        return invoiceService.findAllInvoicesByCustomerId(customerId);
     }
 }
