@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class CustomerServiceImpl implements CustomerService {
@@ -22,6 +23,11 @@ public class CustomerServiceImpl implements CustomerService {
     @Override
     public Customer findCustomerByPhoneNumber(String phoneNumber) {
         return customerRepository.findCustomerByPhoneNumber(phoneNumber);
+    }
+
+    @Override
+    public Optional<Customer> findCustomerById(Long id) {
+        return customerRepository.findById(id);
     }
 
     @Override

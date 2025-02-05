@@ -16,9 +16,9 @@ public class InvoiceController {
     @Autowired
     CustomerService customerService;
 
-    @PostMapping("/saveInvoice/{phoneNumber}")
-    public Invoice saveInvoice(@RequestBody Invoice invoice,@PathVariable String phoneNumber){
-        Customer customerDB =  customerService.findCustomerByPhoneNumber(phoneNumber);
+    @PostMapping("/saveInvoice/{id}")
+    public Invoice saveInvoice(@RequestBody Invoice invoice,@PathVariable Long id){
+        Customer customerDB =  customerService.findCustomerById(id).get();
         invoice.setCustomer(customerDB);
         return invoiceService.saveInvoice(invoice);
     }
