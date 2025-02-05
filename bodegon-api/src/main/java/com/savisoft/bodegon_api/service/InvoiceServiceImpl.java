@@ -5,6 +5,8 @@ import com.savisoft.bodegon_api.repository.InvoiceRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class InvoiceServiceImpl implements InvoiceService{
 
@@ -46,5 +48,12 @@ public class InvoiceServiceImpl implements InvoiceService{
     @Override
     public Invoice findInvoiceById(Long id) {
         return invoiceRepository.findById(id).get();
+    }
+
+    //----------------Methods to get information about the Invoice Entity---------
+
+    @Override
+    public List<Invoice> findAllInvoicesByCustomerId(Long customerId) {
+        return invoiceRepository.findAllInvoicesByCustomerId(customerId);
     }
 }
